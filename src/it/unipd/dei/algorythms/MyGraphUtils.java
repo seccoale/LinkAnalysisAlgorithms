@@ -12,6 +12,7 @@ import java.util.*;
 
 public class MyGraphUtils {
     private static int verboseLevel = 0;
+    private static int numOutOfBoundary=0;
     
     public static int getVerboseLevel() {
 		return verboseLevel;
@@ -49,7 +50,13 @@ public class MyGraphUtils {
 				int outDeg =(int) G.outdegree(nodeId);
 				double invDeg = 1d/outDeg; // multiplication will be faster than division
 				while(outDeg-- != 0) {
-				    newPageRank[(int)successors.nextLong()] += alpha * oldPageRank[nodeId] * invDeg;
+					int successor=(int) successors.nextLong();
+					if(successor<newPageRank.length){//added control
+						newPageRank[(int)successors.nextLong()] += alpha * oldPageRank[nodeId] * invDeg;
+					}
+					else {
+						System.err.println("["+ (++numOutOfBoundary) +"]"+successor + "will be discarded: too big, out of boundary! treating it as -1");
+					}
 				}
 		    }
 		    /* if there are dangling nodes, their contribution must be now redistributed "by hand" */
@@ -73,6 +80,7 @@ public class MyGraphUtils {
 		    if (scoreVariation < epsilon) // exit if convergence reached
 		    	break;
 		}
+		System.err.println("Total OutOfBoundaryException discarded: "+numOutOfBoundary);
 		return oldPageRank;
     }
 	
