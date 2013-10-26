@@ -58,6 +58,8 @@ public class LinkAnalysisRunner {
 		}
 	}
 	public static void check(ImmutableGraph graph){
+		long totalError=0;
+		long totalOutDegree=0;
 		int n=graph.intNumNodes();
 		for(int i=0; i<n; i++){
 			LazyLongIterator successors=graph.successors(i);
@@ -69,10 +71,16 @@ public class LinkAnalysisRunner {
 					errors++;
 				}
 			}
-			System.out.println("node "+i+": errors//total="+errors+"//"+outDegree);
+			System.out.println("node "+i+": errors/total="+errors+"/"+outDegree);
+			totalError+=errors;
+			totalOutDegree+=outDegree;
+			if(totalError<0){
+				System.err.println("OVERFLOW of errors");
+			}
 			errors=0;
 			outDegree=0;
 		}
+		System.out.println("TOTAL: errors/totOut = "+totalError+"/"+totalOutDegree);
 	}
 
 }
