@@ -1,6 +1,8 @@
 package it.unipd.dei.run_utils;
 
 import it.unimi.dsi.big.webgraph.EFGraph;
+import it.unimi.dsi.big.webgraph.ImmutableGraph;
+import it.unimi.dsi.big.webgraph.LazyLongIterator;
 import it.unipd.dei.algorythms.MyGraphUtils;
 
 import java.io.IOException;
@@ -10,6 +12,7 @@ import java.util.Scanner;
 public class LinkAnalysisRunner {
 	private final static String PAGE_RANK="page rank";
 	private final static String END="end";
+	private static final String CHECK="check";
 	/**
 	 * @param args
 	 */
@@ -24,6 +27,7 @@ public class LinkAnalysisRunner {
 			String command=null;
 			do{
 				System.out.println(PAGE_RANK+" - executes page rank");
+				System.out.println(CHECK+" - look the graph and print out poblems, checking the nodes and asserting whether they are >=0 and <=|V|");
 				System.out.println(END+" - close the application");
 				command=in.nextLine();
 				switch (command) {
@@ -43,13 +47,30 @@ public class LinkAnalysisRunner {
 						e.printStackTrace();
 					}
 					break;
-
+				case CHECK:
 				default:
 					break;
 				}
 			} while (END.equals(command));
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	public static void check(ImmutableGraph graph){
+		int n=graph.intNumNodes();
+		for(int i=0; i<n; i++){
+			LazyLongIterator successors=graph.successors(i);
+			int outDegree=(int)graph.outdegree(i);
+			long errors=0;
+			for(int j=0; j<outDegree; j++){
+				int succ=(int)successors.nextLong();
+				if(succ>n || succ <0){
+					errors++;
+				}
+			}
+			System.out.println("node "+i+": errors//total="+errors+"//"+outDegree);
+			errors=0;
+			outDegree=0;
 		}
 	}
 
