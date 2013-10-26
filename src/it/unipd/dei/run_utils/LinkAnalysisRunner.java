@@ -19,7 +19,7 @@ public class LinkAnalysisRunner {
 			System.exit(1);
 		}
 		try {
-			EFGraph graph=EFGraph.load(args[0]);
+			EFGraph graph=EFGraph.loadOffline(args[0]);
 			Scanner in=new Scanner(System.in);
 			String command=null;
 			do{
