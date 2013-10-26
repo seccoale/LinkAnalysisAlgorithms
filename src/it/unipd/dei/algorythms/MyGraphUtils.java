@@ -51,7 +51,7 @@ public class MyGraphUtils {
 				double invDeg = 1d/outDeg; // multiplication will be faster than division
 				while(outDeg-- != 0) {
 					int successor=(int) successors.nextLong();
-					if(successor<newPageRank.length){//added control
+					if(successor<newPageRank.length && successor>=0){//added control
 						newPageRank[(int)successors.nextLong()] += alpha * oldPageRank[nodeId] * invDeg;
 					}
 					else {
