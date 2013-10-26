@@ -1,11 +1,11 @@
 package it.unipd.dei.run_utils;
 
+import it.unimi.dsi.big.webgraph.EFGraph;
+import it.unipd.dei.algorythms.MyGraphUtils;
+
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.util.Scanner;
-
-import it.unimi.dsi.big.webgraph.BVGraph;
-import it.unipd.dei.algorythms.MyGraphUtils;
 
 public class LinkAnalysisRunner {
 	private final static String PAGE_RANK="page rank";
@@ -19,7 +19,7 @@ public class LinkAnalysisRunner {
 			System.exit(1);
 		}
 		try {
-			BVGraph graph=BVGraph.load(args[0]);
+			EFGraph graph=EFGraph.load(args[0]);
 			Scanner in=new Scanner(System.in);
 			String command=null;
 			do{
