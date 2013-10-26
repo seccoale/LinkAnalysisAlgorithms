@@ -48,6 +48,7 @@ public class LinkAnalysisRunner {
 					}
 					break;
 				case CHECK:
+					check(graph);
 				default:
 					break;
 				}
