@@ -48,7 +48,9 @@ public class LinkAnalysisRunner {
 					}
 					break;
 				case CHECK:
-					check(graph);
+					System.out.println("verbose on? (y/n)");
+					boolean verbose=!in.nextLine().equals("n");
+					check(graph, verbose);
 				default:
 					break;
 				}
@@ -57,7 +59,7 @@ public class LinkAnalysisRunner {
 			e.printStackTrace();
 		}
 	}
-	public static void check(ImmutableGraph graph){
+	public static void check(ImmutableGraph graph, boolean verbose){
 		long totalError=0;
 		long totalOutDegree=0;
 		int n=graph.intNumNodes();
@@ -71,16 +73,17 @@ public class LinkAnalysisRunner {
 					errors++;
 				}
 			}
-			System.out.println("node "+i+": errors/total="+errors+"/"+outDegree);
+			if(verbose){
+				System.out.println("node "+i+": errors/total="+errors+"/"+outDegree);
+			}
 			totalError+=errors;
 			totalOutDegree+=outDegree;
 			if(totalError<0){
-				System.err.println("OVERFLOW of errors");
+				System.err.println("OVERFLOW of errors... continuing anyway");
 			}
 			errors=0;
 			outDegree=0;
 		}
 		System.out.println("TOTAL: errors/totOut = "+totalError+"/"+totalOutDegree);
 	}
-
 }
