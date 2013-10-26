@@ -52,7 +52,7 @@ public class MyGraphUtils {
 				while(outDeg-- != 0) {
 					int successor=(int) successors.nextLong();
 					if(successor<newPageRank.length && successor>=0){//added control
-						newPageRank[(int)successors.nextLong()] += alpha * oldPageRank[nodeId] * invDeg;
+						newPageRank[successor] += alpha * oldPageRank[nodeId] * invDeg;
 					}
 					else {
 						System.err.println("["+ (++numOutOfBoundary) +"]"+successor + "will be discarded: too big, out of boundary! treating it as -1");
