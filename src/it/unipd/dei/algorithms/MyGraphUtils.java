@@ -1,4 +1,4 @@
-package it.unipd.dei.algorythms;
+package it.unipd.dei.algorithms;
 
 /**
  * @author Marco Bressan

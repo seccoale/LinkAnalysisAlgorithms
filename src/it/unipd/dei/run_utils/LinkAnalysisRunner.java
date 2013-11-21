@@ -1,9 +1,9 @@
 package it.unipd.dei.run_utils;
 
-import it.unimi.dsi.big.webgraph.EFGraph;
+import it.unimi.dsi.big.webgraph.BVGraph;
 import it.unimi.dsi.big.webgraph.ImmutableGraph;
 import it.unimi.dsi.big.webgraph.LazyLongIterator;
-import it.unipd.dei.algorythms.MyGraphUtils;
+import it.unipd.dei.algorithms.MyGraphUtils;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -22,7 +22,7 @@ public class LinkAnalysisRunner {
 			System.exit(1);
 		}
 		try {
-			EFGraph graph=EFGraph.loadOffline(args[0]);
+			BVGraph graph=BVGraph.loadOffline(args[0]);
 			Scanner in=new Scanner(System.in);
 			String command=null;
 			do{
