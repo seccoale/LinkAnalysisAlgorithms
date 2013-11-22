@@ -25,7 +25,7 @@ public class LinkAnalysisRunner {
 			System.exit(1);
 		}
 		try {
-			BVGraph graph=BVGraph.load(args[0]);
+			BVGraph graph=BVGraph.loadOffline(args[0]);
 			Scanner in=new Scanner(System.in);
 			String command=null;
 			do{

@@ -1,0 +1,46 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+mainClassName = "it.unipd.dei.run_utils.LinkAnalysisRunner"
+
+sourceSets {
+  main {
+    java {
+      srcDir "src"
+    }
+  }
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile "it.unimi.dsi:webgraph-big:3.2.0"
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '1.8'
+}
+
+idea {
+  module {
+    downloadSources = true
+  }
+}
+
+jar {
+  from {
+    configurations.runtime.collect {
+      it.isDirectory() ? it : zipTree(it)
+    }
+  }
+  manifest {
+    attributes 'Main-Class': mainClassName
+  }
+}
+
+
+
