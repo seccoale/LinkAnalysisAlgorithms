@@ -5,6 +5,8 @@ import it.unimi.dsi.big.webgraph.ImmutableGraph;
 import it.unimi.dsi.big.webgraph.LazyLongIterator;
 import it.unipd.dei.algorithms.MyGraphUtils;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.util.Scanner;
@@ -13,6 +15,7 @@ public class LinkAnalysisRunner {
 	private final static String PAGE_RANK="page rank";
 	private final static String END="end";
 	private static final String CHECK="check";
+	private static String OUT_PATH=".pagerank";
 	/**
 	 * @param args
 	 */
@@ -40,9 +43,13 @@ public class LinkAnalysisRunner {
 					int maxIterations=in.nextInt();
 					try {
 						double[] page_rank_res=MyGraphUtils.GetPageRank(graph, alpha, epsilon, maxIterations);
-						for(double d: page_rank_res){
-							System.out.print(d+" - ");
+						File outFile=new File(args[0]+OUT_PATH);
+						outFile.createNewFile();
+						FileWriter out=new FileWriter(outFile);
+						for(int i=0; i<page_rank_res.length; i++){
+							out.write(i+" "+page_rank_res[i]+"\n");
 						}
+						out.close();
 					} catch (InvalidAlgorithmParameterException e) {
 						e.printStackTrace();
 					}
