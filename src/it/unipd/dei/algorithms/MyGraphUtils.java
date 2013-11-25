@@ -45,8 +45,9 @@ public class MyGraphUtils {
     double[] oldPageRank = new double[n];
     Arrays.fill(oldPageRank, (1d / n));
     double[] newPageRank = new double[n];
+    int itr;
 		/* Main loop */
-    for (int itr = 1; itr <= maxIterations; itr++) {
+    for (itr = 1; itr <= maxIterations; itr++) {
       NodeIterator nodeIterator = G.nodeIterator();
       Arrays.fill(newPageRank, 0d); // make space for this iteration's result
       while (nodeIterator.hasNext()) {
@@ -84,7 +85,10 @@ public class MyGraphUtils {
       if (scoreVariation < epsilon) // exit if convergence reached
         break;
     }
-    System.err.println("Total OutOfBoundaryException discarded: " + numOutOfBoundary);
+    if(numOutOfBoundary>0){
+    	System.err.println("Total OutOfBoundaryException discarded: " + numOutOfBoundary);
+    }
+    System.out.println("Coputation ended after iteration "+itr+"/"+maxIterations);
     return oldPageRank;
   }
 
