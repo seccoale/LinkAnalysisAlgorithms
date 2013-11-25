@@ -9,6 +9,8 @@ import it.unimi.dsi.big.webgraph.LazyLongIterator;
 import it.unimi.dsi.big.webgraph.NodeIterator;
 
 import java.security.InvalidAlgorithmParameterException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class MyGraphUtils {
@@ -46,7 +48,10 @@ public class MyGraphUtils {
     Arrays.fill(oldPageRank, (1d / n));
     double[] newPageRank = new double[n];
     int itr;
+    Date tmpDate=new Date();
+    DateFormat df=new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		/* Main loop */
+    System.out.println("["+df.format(Calendar.getInstance().getTime())+"]");
     for (itr = 1; itr <= maxIterations; itr++) {
       NodeIterator nodeIterator = G.nodeIterator();
       Arrays.fill(newPageRank, 0d); // make space for this iteration's result
@@ -80,7 +85,7 @@ public class MyGraphUtils {
         scoreSum += oldPageRank[nodeId];
       }
       if (verboseLevel > 0) {
-        System.out.println("iteration " + itr + ", scores sum up to " + (scoreSum) + " , delta = " + scoreVariation);
+        System.out.println("["+df.format(Calendar.getInstance().getTime())+"] iteration " + itr + ", scores sum up to " + (scoreSum) + " , delta = " + scoreVariation);
       }
       if (scoreVariation < epsilon) // exit if convergence reached
         break;
