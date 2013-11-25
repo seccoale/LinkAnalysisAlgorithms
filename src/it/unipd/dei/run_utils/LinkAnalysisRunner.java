@@ -9,6 +9,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 public class LinkAnalysisRunner {
@@ -42,7 +46,15 @@ public class LinkAnalysisRunner {
 					System.out.println("write max iteration");
 					int maxIterations=in.nextInt();
 					try {
+						MyGraphUtils.setVerboseLevel(1);
+						DateFormat df=new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+						Date start=Calendar.getInstance().getTime();
 						double[] page_rank_res=MyGraphUtils.GetPageRank(graph, alpha, epsilon, maxIterations);
+						Date end=Calendar.getInstance().getTime();
+						String startS=df.format(start);
+						String endS=df.format(end);
+						String diff=df.format(new Date(end.getTime()-start.getTime()));
+						System.out.println("Start time: "+startS+"\nEnd time: "+endS+"\ndiff: "+diff);
 						File outFile=new File(args[0]+OUT_PATH);
 						outFile.createNewFile();
 						FileWriter out=new FileWriter(outFile);
