@@ -77,10 +77,8 @@ public class MyGraphUtils {
       double sinkContrib = (alpha - scoreSum) / n; // contribution from the sinks to each node
 		    /* fix all the scores, prepare for next iteration, and verify if we should return */
       scoreSum = 0d;
-      double scoreVariation = 0; 
-      NodeIterator nodeItr = G.nodeIterator();
-      while (nodeItr.hasNext()) {
-        int nodeId =(int) nodeItr.nextLong();
+      double scoreVariation = 0;
+      for (int nodeId = 0; nodeId < n; nodeId++) {
         newPageRank[nodeId] += (1 - alpha) / n + sinkContrib; // each score's node misses (1-alpha)/n and the sinks' contribution
         scoreVariation += Math.abs(newPageRank[nodeId] - oldPageRank[nodeId]);
         oldPageRank[nodeId] = newPageRank[nodeId]; // prepare for next iteration
